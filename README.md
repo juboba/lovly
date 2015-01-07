@@ -1,6 +1,6 @@
-# [Lovly]
+# [Lovly](http://github.com/juboba/lovly/)
 
-[lovly] is an open source photo sharing service created for sharing your photos privately.
+[Lovly](http://github.com/juboba/lovly/) is an open source photo sharing service created for sharing your photos privately.
 
 ## Getting Started
 
@@ -10,4 +10,4 @@ To use this template, choose one of the following options to get started:
 
 ## Just Demo for now
 
-[lovly] is under development. The sources you see here are the first version of the front-end application.
+[Lovly](http://github.com/juboba/lovly/) is under development. The sources you see here are the first version of the front-end application.
