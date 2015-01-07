@@ -5,7 +5,7 @@
             <h1 class="page-header">
                 Gallery
             </h1>
-            <breadcrumbs></breadcrumbs>
+            <div ncy-breadcrumb></div>
         </div>
     </div>
     <!-- /.row -->
@@ -23,7 +23,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="album in albums | orderBy: name">
-                            <td><a href="#gallery/album/{{album.id}}">{{album.name}}</a></td>
+                            <td><a ui-sref="album({id: album.id})">{{album.name}}</a></td>
                             <td>{{album.created_on}}</td>
                         </tr>
                             <!--

@@ -18,6 +18,12 @@
     <link href="css/sb-admin.css" rel="stylesheet">
     <link href="file.css" rel="stylesheet">
 
+    <style type="text/css">
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+    }
+    </style>
+
     <!-- Morris Charts CSS -->
     <link href="css/plugins/morris.css" rel="stylesheet">
 
@@ -33,7 +39,7 @@
 
 </head>
 
-<body ng-app="lovly">
+<body ng-app="lovly" ng-cloak>
 
     <div id="wrapper">
 
@@ -154,12 +160,12 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="#home"><i class="fa fa-fw fa-dashboard"></i> Home</a>
+                        <a ui-sref="home"><i class="fa fa-fw fa-dashboard"></i> Home</a>
                     </li>
                     <li>
-                        <a href="#gallery"><i class="fa fa-fw fa-table"></i> Gallery</a>
+                        <a ui-sref="gallery"><i class="fa fa-fw fa-table"></i> Gallery</a>
                     </li>
-                    --
+                    <!--
                     <li>
                         <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
                     </li>
@@ -189,6 +195,7 @@
                     <li>
                         <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
                     </li>
+                    -->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -196,7 +203,7 @@
 
         <div id="page-wrapper">
 
-                <div ng-view></div>
+                <div ui-view></div>
 
         </div>
         <!-- /#page-wrapper -->
@@ -205,14 +212,17 @@
     <!-- /#wrapper -->
 
     <script type="text/javascript" src="bower_components/angularjs/angular.js"></script>
-    <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="bower_components/angular-filter/dist/angular-filter.js"></script>
-    <script type="text/javascript" src="bower_components/ng-breadcrumbs/dist/ng-breadcrumbs.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="bower_components/angular-breadcrumb/dist/angular-breadcrumb.js"></script>
     <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/directives/main.js"></script>
     <script type="text/javascript" src="js/controllers/nav.js"></script>
     <script type="text/javascript" src="js/controllers/home.js"></script>
+    <script type="text/javascript" src="js/controllers/gallery.js"></script>
+    <script type="text/javascript" src="js/controllers/album.js"></script>
+    <script type="text/javascript" src="js/controllers/photo.js"></script>
 
 </body>
 

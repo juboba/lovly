@@ -1,38 +1,55 @@
 var lovly = angular.module('lovly', [
         'ui.bootstrap',
-        'ngRoute',
-        'ng-breadcrumbs',
+        'ui.router',
+        'ncy-angular-breadcrumb',
         'angular.filter',
         'lovly.controllers'
         ]);
 
-lovly.config(['$routeProvider', function($routeProvider){
-    $routeProvider
-        .when('/home', {
-            label: 'Home',
-            icon: 'fa-dashboard',
+lovly.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+
+    $urlRouterProvider.otherwise('/home');
+
+    $stateProvider
+        .state('home', {
+            url: '/home',
             templateUrl: 'templates/home.html',
-            controller: 'homeController'
-        })
-        .when('/gallery', {
-            label: 'Gallery',
-            icon: 'fa-table',
-            templateUrl: 'templates/gallery.html',
-            controller: 'galleryController'
-        })
-        .when('/gallery/album/:id', {
-            label: 'Album',
-            templateUrl: 'templates/album.html',
-            controller: 'albumController'
-        })
-        .when('/gallery/album/:aid/photo/:pid', {
-            label: 'Photo',
-            templateUrl: 'templates/photo.html',
-            controller: 'photoController'
-        })
-        .otherwise(
-            {
-                redirectTo: '/home'
+            controller: 'homeController',
+            ncyBreadcrumb: {
+                label: 'Home',
+                icon: 'fa-dashboard',
             }
-            );
+        })
+        .state('gallery', {
+            url: '/gallery',
+            templateUrl: 'templates/gallery.html',
+            controller: 'galleryController',
+            ncyBreadcrumb: {
+                label: 'Gallery',
+                icon: 'fa-table',
+            }
+        })
+        .state('album', {
+            url: '/album/{id:int}',
+            templateUrl: 'templates/album.html',
+            controller: 'albumController',
+            ncyBreadcrumb: {
+                label: 'Album',
+                icon: 'fa-table',
+                parent: 'gallery'
+            }
+        })
+        .state('photo', {
+            url: '/photo/{pid:int}',
+            templateUrl: 'templates/photo.html',
+            controller: 'photoController',
+            ncyBreadcrumb: {
+                label: 'Photo',
+                icon: 'fa-table',
+                parent: function($scope){
+                    return 'album({id: ' + $scope.album.id + '})';
+                }
+            }
+        })
+        ;
 }]);

@@ -1,3 +1,16 @@
+<script type="text/ng-template" id="add_comment.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Add Comment</h3>
+        <div class="modal-body">
+            <textarea ng-model="comment" class="form-control"></textarea>
+        </div>
+        <div class="modal-footer">
+        <input type="button" class="btn btn-primary" value="Save" ng-click="save_comment()"/>
+        <input type="button" class="btn btn-warning" value="Cancel" ng-click="close()"/>
+        </div>
+    </div>
+</script>
+
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="row">
@@ -5,7 +18,7 @@
             <h1 class="page-header">
                 {{photo.title}}
             </h1>
-            <breadcrumbs></breadcrumbs>
+            <div ncy-breadcrumb></div>
         </div>
     </div>
     <!-- /.row -->
@@ -25,6 +38,15 @@
         </div>
     </div>
     <!-- /.row -->
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-header">Add a comment</h4>
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" value="Add comment" ng-click="open()" />
+            </div>
+        </div>
+    </div>
 
     </div>
     <!-- /.row -->
