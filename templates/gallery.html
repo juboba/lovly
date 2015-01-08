@@ -19,12 +19,14 @@
                         <tr>
                             <th>Name</th>
                             <th>Created on</th>
+                            <th>Shared with</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="album in albums | orderBy: name">
                             <td><a ui-sref="album({id: album.id})">{{album.name}}</a></td>
                             <td>{{album.created_on}}</td>
+                            <td><a href="#">@MilaGomez</a></td>
                         </tr>
                             <!--
                         <tr class="active">

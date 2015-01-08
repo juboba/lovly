@@ -3,6 +3,7 @@ var lovly = angular.module('lovly', [
         'ui.router',
         'ncy-angular-breadcrumb',
         'angular.filter',
+        'uiGmapgoogle-maps',
         'lovly.controllers'
         ]);
 
@@ -52,4 +53,12 @@ lovly.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
             }
         })
         ;
-}]);
+}])
+.config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyCUe6RCy9JqKikd9xzl6mpI7Il39M0gMSE',
+        v: '3.17',
+        libraries: 'weather,geometry,visualization'
+    });
+})
+;

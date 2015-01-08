@@ -17,28 +17,28 @@ function($scope, $filter, $stateParams){
     $scope.photos = [
         {
             id: 1,
-            file: 'http://localhost/~juboba/lovly/jane-goodall.jpg',
+            file: 'jane-goodall.jpg',
             title: 'Jane Goodall',
             created_on: $filter('date')(new Date(2013, 02, 01))
         },
         {
             id: 2,
-            file: 'http://localhost/~juboba/lovly/jane-goodall.jpg',
+            file: 'jane-goodall.jpg',
             created_on: $filter('date')(new Date(2013, 02, 01))
         },
         {
             id: 3,
-            file: 'http://localhost/~juboba/lovly/jane-goodall.jpg',
+            file: 'jane-goodall.jpg',
             created_on: $filter('date')(new Date(2013, 02, 01))
         },
         {
             id: 4,
-            file: 'http://localhost/~juboba/lovly/jane-goodall.jpg',
+            file: 'jane-goodall.jpg',
             created_on: $filter('date')(new Date(2013, 02, 01))
         },
         {
             id: 5,
-            file: 'http://localhost/~juboba/lovly/jane-goodall.jpg',
+            file: 'jane-goodall.jpg',
             created_on: $filter('date')(new Date(2013, 02, 01))
         }
     ];

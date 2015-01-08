@@ -6,7 +6,21 @@ angular.module('lovly.controllers')
         '$filter',
         '$stateParams',
         '$modal',
-function($scope, $filter, $stateParams, $modal){
+        'uiGmapGoogleMapApi',
+function($scope, $filter, $stateParams, $modal, uiGmapGoogleMapApi){
+
+    uiGmapGoogleMapApi.then(function(maps) {
+        var mapOptions = {
+                        center: { lat: -36.825, lng: -73.048},
+                        zoom: 8
+                      };
+        var map = new maps.Map(document.getElementById('map-canvas'), mapOptions);
+    });
+
+    $scope.map = {
+            center: { latitude: -36.825, longitude: -73.048},
+            zoom: 8
+    };
 
     $scope.album = {
         id: 1
@@ -15,7 +29,7 @@ function($scope, $filter, $stateParams, $modal){
     //Se trae la foto:
     $scope.photo = {
         id: $stateParams.pid,
-        file: 'http://localhost/~juboba/lovly/jane-goodall.jpg',
+        file: 'jane-goodall.jpg',
         title: 'Jane Goodall',
         caption: 'una foto de Jane Goodall',
         created_on: $filter('date')(new Date(2013, 02, 01))
