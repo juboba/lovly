@@ -35,7 +35,7 @@ lovly.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
             templateUrl: 'templates/album.html',
             controller: 'albumController',
             ncyBreadcrumb: {
-                label: 'Album',
+                label: '{{album.name}}',
                 icon: 'fa-table',
                 parent: 'gallery'
             }

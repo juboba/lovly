@@ -5,14 +5,18 @@ angular.module('lovly.controllers')
         '$scope',
         '$filter',
         '$stateParams',
-function($scope, $filter, $stateParams){
+        '$modal',
+function($scope, $filter, $stateParams, $modal){
 
     $scope.polaroid_on = 'polaroid-images';
+
     $scope.album = {
         id: $stateParams.id
         ,name: 'Vacaciones 2013'
         //,created_on: $filter('date')(new Date(2013, 02, 01))
     };
+
+    $scope.config = {};
 
     $scope.photos = [
         {
@@ -43,4 +47,33 @@ function($scope, $filter, $stateParams){
         }
     ];
 
-}]);
+    $scope.open_config = function(){
+        $modal.open({
+            templateUrl: 'album_config.tpl',
+            controller: 'albumConfigController'
+        })
+        .result.then(function(config){
+            $scope.config.name = config.name;
+            $scope.album.name = config.name;
+        });
+    };
+
+}])
+
+//Config Controller
+.controller('albumConfigController', [
+        '$scope',
+        '$modalInstance',
+function($scope, $modalInstance){
+
+    $scope.save_config = function(){
+        $modalInstance.close({
+            name: $scope.album_name
+        });
+    };
+
+    $scope.close = function(){
+        $modalInstance.dismiss();
+    };
+}])
+;

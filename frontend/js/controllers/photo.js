@@ -17,13 +17,18 @@ function($scope, $filter, $stateParams, $modal, uiGmapGoogleMapApi){
         var map = new maps.Map(document.getElementById('map-canvas'), mapOptions);
     });
 
+    /*
     $scope.map = {
             center: { latitude: -36.825, longitude: -73.048},
             zoom: 8
     };
+    */
+
+    $scope.hide_map = true;
 
     $scope.album = {
-        id: 1
+        id: 1,
+        name: 'not here yet'
     };
 
     //Se trae la foto:
@@ -54,9 +59,9 @@ function($scope, $filter, $stateParams, $modal, uiGmapGoogleMapApi){
         }
     ];
 
-    $scope.open = function(){
+    $scope.add_comment = function(){
         var modalInstance = $modal.open({
-            templateUrl: 'add_comment.html',
+            templateUrl: 'add_comment.tpl',
             controller: 'addCommentController'
         })
         .result.then(function(comment){
@@ -67,9 +72,15 @@ function($scope, $filter, $stateParams, $modal, uiGmapGoogleMapApi){
                 comment: comment
             });
         });
-    }
+    };
+
+    $scope.toggle_map = function(){
+        $scope.hide_map = ! $scope.hide_map;
+    };
+
 }])
 
+// Add Comment Dialog Controller
 .controller('addCommentController', [
         '$scope',
         '$modalInstance',
@@ -84,4 +95,6 @@ function($scope, $modalInstance){
     $scope.close = function(){
         $modalInstance.dismiss();
     };
-}]);
+}])
+
+;

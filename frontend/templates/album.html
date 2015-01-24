@@ -1,0 +1,36 @@
+<script type="text/ng-template" id="album_config.tpl">
+    <div class="modal-header">
+        <h3 class="modal-title">Album Config</h3>
+        <div class="modal-body">
+            <input type="text" class="form-control" ng-model="album_name" placeholder="Album name"/>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="save_config()">Save</button>
+            <button class="btn btn-warning" ng-click="close()">Cancel</button>
+        </div>
+    </div>
+</script>
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                {{album.name}}
+            </h1>
+            <div ncy-breadcrumb></div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <button class="btn btn-xs btn-warning" ng-click="open_config()">Configure Album</button>
+
+    <div ng-class="polaroid_on">
+        <a ng-repeat="img in photos" ui-sref="photo({pid: img.id})" title="{{img.title}}">
+            <img ng-src="{{img.file}}" height="150px" width="240px"/>
+        </a>
+    </div>
+
+
+</div>
+<!-- /.container-fluid -->

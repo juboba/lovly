@@ -16,7 +16,7 @@
 
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
-    <link href="file.css" rel="stylesheet">
+    <link href="css/polaroids.css" rel="stylesheet">
 
     <style type="text/css">
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -159,10 +159,10 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                    <li ng-class="{active: isActive('home')}">
                         <a ui-sref="home"><i class="fa fa-fw fa-dashboard"></i> Home</a>
                     </li>
-                    <li>
+                    <li ng-class="{active: isActive('gallery')}">
                         <a ui-sref="gallery"><i class="fa fa-fw fa-table"></i> Gallery</a>
                     </li>
                     <!--
