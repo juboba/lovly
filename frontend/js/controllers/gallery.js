@@ -5,30 +5,39 @@ angular.module('lovly.controllers')
         '$scope',
         '$filter',
         '$modal',
-function($scope, $filter, $modal){
-    $scope.albums = [
-        {
-            id: 1,
-            name: 'Vacaciones 2013',
-            created_on: $filter('date')(new Date(2013, 02, 01))
-        },
-        {
-            id: 2,
-            name: 'Vacaciones 2013',
-            created_on: $filter('date')(new Date(2013, 02, 01))
+        '$http',
+function($scope, $filter, $modal, $http){
+    //Get album list:
+    $http.get('/gallery', {
+        params: {
+            uid: 174
         }
-    ];
+    }).
+    success(function(albums){
+        $scope.albums = albums;
+    }).
+    error(function(data, status){
+        console.log(status);
+    });
 
+
+    //Create new album:
     $scope.new_album = function(){
         $modal.open({
             templateUrl: 'new_album.tpl',
             controller: 'addAlbumController'
         })
         .result.then(function(album){
-            $scope.albums.push({
-                id: $scope.albums.length + 1,
-                name: album,
-                created_on: $filter('date')(new Date(2013, 02, 01))
+            $http.post('/album/create', {
+                uid: 174,
+                name: album.name,
+                public: album.public
+            }).
+            success(function(album){
+                $scope.albums.push(album);
+            }).
+            error(function(data, status){
+                console.log(status);
             });
         });
     };
@@ -40,10 +49,13 @@ function($scope, $filter, $modal){
         '$modalInstance',
 function($scope, $modalInstance){
 
-    $scope.album_name = '';
+    $scope.new_album = {
+        name: '',
+        public: false
+    };
 
     $scope.save_album = function(){
-        $modalInstance.close($scope.album_name);
+        $modalInstance.close($scope.new_album);
     };
 
     $scope.close = function(){

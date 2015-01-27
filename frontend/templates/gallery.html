@@ -2,7 +2,13 @@
     <div class="modal-header">
         <h3 class="modal-title">Add New Album</h3>
         <div class="modal-body">
-            <input type="text" class="form-control" ng-model="album_name" placeholder="Album name here"/>
+            <input type="text" class="form-control" ng-model="new_album.name" placeholder="Album name here"/>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="new_album.public"/>
+                    Public
+                </label>
+            </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="save_album()">Save</button>

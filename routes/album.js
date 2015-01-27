@@ -12,14 +12,49 @@ exports.list = function(req, res){
             if(err) return console.log(err);
 
             als = albums.map(function(al){
-                return {
-                    id: al.id,
-                    name: al.name,
-                    created_on: al.created_on
-                };
+                return al.raw();
             });
 
             res.json(als);
+        });
+    });
+};
+
+/********************************************
+ * GET: /album/:id
+ * Display a list of photos for an album
+********************************************/
+exports.info = function(req, res){
+    var album_id = req.params.id;
+
+    Album.get(album_id, function(err, album){
+        if (err) return console.log(err);
+
+        res.json(album.raw());
+    });
+};
+
+/********************************************
+ * GET: /album/:id/photos
+ * Display a list of photos for an album
+********************************************/
+exports.photo_list = function(req, res){
+    var album_id = req.params.id;
+
+    Album.get(album_id, function(err, album){
+        if (err) return console.log(err);
+
+        album.getPhotos(function(err, photos){
+            if(err) return console.log(err);
+
+            phs = photos.map(function(ph){
+                return ph.raw();
+            });
+
+            var album_raw = album.raw();
+            album_raw.photos = phs;
+
+            res.json(album_raw);
         });
     });
 };
@@ -29,42 +64,50 @@ exports.list = function(req, res){
  * Creates a new album for a user
 ********************************************/
 exports.create = function(req, res){
-    var user_id = req.query.uid;
+    var user_id = req.body.uid;
 
-    var user = new User(user_id);
+    User.get(user_id, function(err, user){
+        if(err) console.log(err);
 
-    var now = new Date();
-
-    var format_date = function(raw){
-        var date = {
-            year: raw.getFullYear(),
-            month: raw.getMonth() + 1,
-            day: raw.getDate(),
-            hours: raw.getHours(),
-            minutes: raw.getMinutes(),
-            seconds: raw.getSeconds()
-        };
-
-        return date.year
-            + '-' +
-            date.month
-            + '-' +
-            date.day
-            + ' ' +
-            date.hours
-            + ':' +
-            date.minutes
-            + ':' +
-            date.seconds
-            ;
-    };
-
-    Album.create(user, {
-        name: req.body.name,
-        public: req.body.public,
-        created_on: format_date(now)
-    }, function(err, album){
-        res.json(album);
+        Album.create(user, {
+            name: req.body.name,
+            public: req.body.public,
+            created_on: req.moment().format('YYYY-MM-D HH:mm:ss')
+        }, function(err, album){
+            if(err) console.log(err);
+            res.json(album);
+        });
     });
 
+};
+
+/********************************************
+ * POST: /album/upload
+ * Uploads new photo
+********************************************/
+exports.photo_middle = function(req, res, next){
+    var user_id = req.query.uid;
+    var album_id = req.body.aid;
+
+    Album.get(album_id, function(err, album){
+        if(err) return console.log(err);
+
+        req.album = album;
+        next();
+    });
+};
+
+exports.photo_upload = function(req, res){
+    var the_file = req.files.file
+
+    Photo.create(req.album, {
+        file: the_file.name,
+        uploaded_on: req.moment().format('YYYY-MM-D HH:mm:ss')
+    },
+    function(err, photo){
+        if(err) console.log(err);
+
+        //Return the new photo id:
+        res.json(photo.id);
+    });
 };

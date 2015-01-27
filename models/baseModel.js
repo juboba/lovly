@@ -7,5 +7,5 @@ var db = new neo4j.GraphDatabase(
 
 
 module.exports = {
-        db: db
+    db: db
 }

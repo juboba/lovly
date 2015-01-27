@@ -6,46 +6,25 @@ angular.module('lovly.controllers')
         '$filter',
         '$stateParams',
         '$modal',
-function($scope, $filter, $stateParams, $modal){
+        'FileUploader',
+        '$http',
+function($scope, $filter, $stateParams, $modal, FileUploader, $http){
+
+    var album_id = $stateParams.id;
 
     $scope.polaroid_on = 'polaroid-images';
 
-    $scope.album = {
-        id: $stateParams.id
-        ,name: 'Vacaciones 2013'
-        //,created_on: $filter('date')(new Date(2013, 02, 01))
-    };
-
     $scope.config = {};
 
-    $scope.photos = [
-        {
-            id: 1,
-            file: 'jane-goodall.jpg',
-            title: 'Jane Goodall',
-            created_on: $filter('date')(new Date(2013, 02, 01))
-        },
-        {
-            id: 2,
-            file: 'jane-goodall.jpg',
-            created_on: $filter('date')(new Date(2013, 02, 01))
-        },
-        {
-            id: 3,
-            file: 'jane-goodall.jpg',
-            created_on: $filter('date')(new Date(2013, 02, 01))
-        },
-        {
-            id: 4,
-            file: 'jane-goodall.jpg',
-            created_on: $filter('date')(new Date(2013, 02, 01))
-        },
-        {
-            id: 5,
-            file: 'jane-goodall.jpg',
-            created_on: $filter('date')(new Date(2013, 02, 01))
-        }
-    ];
+    $http.get('/album/' + album_id + '/photos/').
+        success(function(album){
+            $scope.album = album;
+            $scope.photos = album.photos;
+        }).
+        error(function(data, status){
+            console.log(status);
+        });
+
 
     $scope.open_config = function(){
         $modal.open({
@@ -57,6 +36,18 @@ function($scope, $filter, $stateParams, $modal){
             $scope.album.name = config.name;
         });
     };
+
+    FileUploader.FileSelect.prototype.isEmptyAfterSelection = function(){
+        return true;
+    };
+
+    $scope.uploader= new FileUploader({
+        url: '/album/upload',
+        autoUpload: true,
+        removeAfterUpload: true,
+        formData: [{aid: album_id}]
+    });
+    
 
 }])
 
@@ -76,4 +67,5 @@ function($scope, $modalInstance){
         $modalInstance.dismiss();
     };
 }])
+
 ;

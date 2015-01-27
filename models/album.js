@@ -35,11 +35,33 @@ Album.prototype.bareData = function(){
     return this._node.data;
 };
 
+Album.prototype.getPhotos = function(callback){
+    this._node.getRelationshipNodes('CONTAINS', function(err, result){
+        if(err) return callback(err);
+
+        var photos = result.map(function(i){
+            a = new Photo(i);
+            return a;
+        });
+
+        callback(null, photos);
+    });
+};
+
 Album.prototype.save = function(callback){
     this._node.save(function(err){
         callback(err);
     });
 };
+
+Album.prototype.raw = function(){
+    return {
+        id: this._node.id,
+        name: this._node.data['name'],
+        public: this._node.data['public'],
+        created_on: this._node.data['created_on']
+    }
+}
 
 Album.getAll = function(callback){
     this.db.query('MATCH (p:Album) RETURN p', function(err, results){
@@ -87,14 +109,14 @@ Album.create = function(user, data, callback){
         'RETURN a'
         ].join('\n');
 
-    var params = data;
+    var params = {data : data};
 
     this.db.query(query, params, function(err, results){
         if(err) return callback(err);
         var album = new Album(results[0]['a']);
         user._node.createRelationshipTo(album._node, 'OWNS', {}, function (err, rel) {
             if(err) return callback(err);
-            callback(album);
+            callback(null, album);
         });
     });
 };

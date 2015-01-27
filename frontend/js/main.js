@@ -4,6 +4,7 @@ var lovly = angular.module('lovly', [
         'ncy-angular-breadcrumb',
         'angular.filter',
         'uiGmapgoogle-maps',
+        'angularFileUpload',
         'lovly.controllers'
         ]);
 
@@ -45,7 +46,7 @@ lovly.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
             templateUrl: 'templates/photo.html',
             controller: 'photoController',
             ncyBreadcrumb: {
-                label: 'Photo',
+                label: '{{photo.caption}}',
                 icon: 'fa-table',
                 parent: function($scope){
                     return 'album({id: ' + $scope.album.id + '})';

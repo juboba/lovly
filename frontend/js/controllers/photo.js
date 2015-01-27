@@ -7,7 +7,8 @@ angular.module('lovly.controllers')
         '$stateParams',
         '$modal',
         'uiGmapGoogleMapApi',
-function($scope, $filter, $stateParams, $modal, uiGmapGoogleMapApi){
+        '$http',
+function($scope, $filter, $stateParams, $modal, uiGmapGoogleMapApi, $http){
 
     uiGmapGoogleMapApi.then(function(maps) {
         var mapOptions = {
@@ -24,23 +25,18 @@ function($scope, $filter, $stateParams, $modal, uiGmapGoogleMapApi){
     };
     */
 
+    $scope.album = {
+        id: 1
+    };
+
     $scope.hide_map = true;
 
-    $scope.album = {
-        id: 1,
-        name: 'not here yet'
-    };
-
-    //Se trae la foto:
-    $scope.photo = {
-        id: $stateParams.pid,
-        file: 'jane-goodall.jpg',
-        title: 'Jane Goodall',
-        caption: 'una foto de Jane Goodall',
-        created_on: $filter('date')(new Date(2013, 02, 01))
-    };
-
-    //$scope.bcrumb = {'Photo': $scope.photo.caption};
+    //Photo's data:
+    $http.get('/photo/' + $stateParams.pid).
+        success(function(photo){
+            $scope.photo = photo;
+            //$scope.comments = photo.comments;
+        });
 
     $scope.comments = [
         {

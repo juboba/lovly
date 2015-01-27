@@ -24,10 +24,18 @@
     <!-- /.row -->
 
     <button class="btn btn-xs btn-warning" ng-click="open_config()">Configure Album</button>
+    <input class="btn btn-xs btn-warning" type="file" nv-file-select uploader="uploader"/>
+    <ul>
+        <li ng-repeat="item in uploader.queue">
+        Name: <span ng-bind="item.file.name"></span><br/>
+        <button class="btn btn-xs btn-primary" ng-click="item.upload()">upload</button>
+        <span ng-bind="item.progress"></span>
+        </li>
+    </ul>
 
     <div ng-class="polaroid_on">
-        <a ng-repeat="img in photos" ui-sref="photo({pid: img.id})" title="{{img.title}}">
-            <img ng-src="{{img.file}}" height="150px" width="240px"/>
+        <a ng-repeat="img in photos" ui-sref="photo({pid: img.id})" title="{{img.caption}}">
+            <img ng-src="/photo/{{img.id}}/view" height="150px" width="240px"/>
         </a>
     </div>
 

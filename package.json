@@ -5,7 +5,9 @@
     "main": "server.js",
     "dependencies": {
         "neo4j": "*",
-        "express": "~4.7.2",
+        "multer": "*",
+        "express": "~4.11",
+        "moment": "*",
         "body-parser": "~1.5.2",
         "method-override": "~2.1.2"
         },
